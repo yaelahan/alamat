@@ -6,45 +6,48 @@
   <meta name="viewport" content="initial-scale=1, width=device-width">
   <meta name="author" content="yaelahan, github.com/yaelahan">
   <title>Get Provinsi, Kabupaten/Kota, Kecamatan, Kelurahan/Desa with AJAX</title>
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/bootstrap-3.3.7.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+
 </head>
 
-<body class="mt-5">
+<body style="margin-top:5rem">
 
-  <div class="col-md-6 offset-md-3">
-    <div class="card">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
 
-      <div class="card-header">
+      <div class="panel-heading">
         Get Provinsi, Kabupaten/Kota, Kecamatan, Kelurahan/Desa with AJAX
       </div>
 
-      <div class="card-body">
+      <div class="panel-body">
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Propinsi</label>
           <div class="col-sm-10">
-            <select id="propinsi" class="form-control selectpicker" title="-- Pilih --"></select>
+            <select id="propinsi" class="form-control selectpicker" title="-- Pilih --" data-live-search="true"></select>
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Kabupaten</label>
           <div class="col-sm-10">
-            <select id="kabupaten" class="form-control selectpicker" title="-- Pilih --"></select>
+            <select id="kabupaten" class="form-control selectpicker" title="-- Pilih --" data-live-search="true"></select>
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Kecamatan</label>
           <div class="col-sm-10">
-            <select id="kecamatan" class="form-control selectpicker" title="-- Pilih --"></select>
+            <select id="kecamatan" class="form-control selectpicker" title="-- Pilih --" data-live-search="true"></select>
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Kelurahan</label>
           <div class="col-sm-10">
-            <select id="kelurahan" class="form-control selectpicker" title="-- Pilih --"></select>
+            <select id="kelurahan" class="form-control selectpicker" title="-- Pilih --" data-live-search="true"></select>
           </div>
         </div>
 
@@ -52,12 +55,15 @@
     </div>
   </div>
 
-  <script src="assets/js/jquery-3.0.0.min.js" type="text/javascript"></script>
+  <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+  <script src="assets/js/bootstrap-3.3.6.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
   <script type="text/javascript">
     $(document).ready(function(){
 
-      function getData(type,id = ''){
-        var data = '<option hidden>-- Pilih --</option>',
+      function getData(type, id = ''){
+        var data = '',
             url = "assets/data-indonesia/",
             i;
 
@@ -76,6 +82,7 @@
               data += '<option value="' + result[i]['id'] + '">' + result[i]['nama'] + '</option>';
             };
             $('#' + type).html(data);
+            $('#' + type).selectpicker('refresh');
           }
         });
       };
@@ -93,7 +100,7 @@
         getData('kecamatan', $(this).val());
       });
 
-      //get kecamatan when kabupaten selected
+      //get kelurahan when kecamatan selected
       $('#kecamatan').on('change', function(){
         getData('kelurahan', $(this).val());
       })
